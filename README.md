@@ -5,10 +5,11 @@
 
 Official repository for our ACM MM 2026 paper **CRISPR**, accepted for publication.
 
-> **Code, checkpoints, and full reproduction instructions are being finalized for
-> camera-ready and will be published here shortly. This page is the permanent,
-> citable home for the project — check back soon, or watch/star the repo to be
-> notified.**
+> **A first, simplified version of the core model code is now available (see
+> [Code](#code) below). Training scripts, evaluation scripts, and checkpoints
+> are being finalized for camera-ready and will follow. This page is the
+> permanent, citable home for the project — watch/star the repo to be notified
+> of updates.**
 
 ## Abstract
 
@@ -18,6 +19,29 @@ from a frozen Qwen2.5-VL-7B/3B-Instruct teacher, with trainable parameters
 amounting to roughly 0.1% of the 7B backbone.
 
 <!-- TODO(camera-ready): paste final paper abstract here -->
+
+## Code
+
+The `crispr/` directory currently contains the core model implementation:
+
+- `crispr/model_v7.py` — the CRISPR architecture: `TokenMixer` (Token Refiner),
+  `LocalC3` (Local Token Compressor + Global Token Fusion), and the top-level
+  `ImageC3ModelV7` model that wires them around a frozen Qwen2.5-VL decoder.
+
+```bash
+pip install -r requirements.txt
+```
+
+```python
+from crispr import create_model_v7
+
+model = create_model_v7(decoder_path="./Qwen/Qwen2.5-VL-7B-Instruct")
+```
+
+Note: this module depends on a local copy of the Qwen2.5-VL backbone weights
+(not included in this repository — see [Qwen2.5-VL](https://github.com/QwenLM/Qwen2.5-VL)
+for download instructions). Training scripts, dataset loaders, evaluation
+scripts, and checkpoints will be added in subsequent updates.
 
 ## Citation
 
@@ -57,7 +81,8 @@ de Janeiro, Brazil. ACM, New York, NY, USA. https://doi.org/10.1145/3767308.3835
 ## Roadmap
 
 - [x] Paper accepted, DOI reserved
-- [ ] De-anonymized code release
+- [x] Core model code (simplified, `crispr/model_v7.py`)
+- [ ] Training and evaluation scripts
 - [ ] Model checkpoints (Qwen2.5-VL-7B and 3B backbones, 9x and 16x compression)
 - [ ] Reproduction-friendly documentation (environment, data prep, training, evaluation)
 
