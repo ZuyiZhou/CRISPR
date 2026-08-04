@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "CRISPR: Context-Refined Information Spatial Pooling with Region-awareness for Efficient Visual Token Compression in VLMs"
+authors:
+  - family-names: Zhou
+    given-names: Zuyi
+    email: zuyi.zhou@evermind.ai
+  - family-names: Xue
+    given-names: Dizhan
+    email: dizhan.xue@evermind.ai
+  - family-names: Qian
+    given-names: Shengsheng
+    email: shengsheng.qian@nlpr.ia.ac.cn
+  - family-names: Xu
+    given-names: Changsheng
+    email: csxu@nlpr.ia.ac.cn
+date-released: 2026-11-10
+doi: 10.1145/3767308.3835007
+preferred-citation:
+  type: conference-paper
+  title: "CRISPR: Context-Refined Information Spatial Pooling with Region-awareness for Efficient Visual Token Compression in VLMs"
+  authors:
+    - family-names: Zhou
+      given-names: Zuyi
+    - family-names: Xue
+      given-names: Dizhan
+    - family-names: Qian
+      given-names: Shengsheng
+    - family-names: Xu
+      given-names: Changsheng
+  collection-title: "Proceedings of the 34th ACM International Conference on Multimedia (MM '26)"
+  conference:
+    name: "ACM Multimedia 2026"
+    date-start: 2026-11-10
+    date-end: 2026-11-14
+    city: Rio de Janeiro
+    country: BR
+  publisher:
+    name: Association for Computing Machinery
+  year: 2026
+  doi: 10.1145/3767308.3835007
