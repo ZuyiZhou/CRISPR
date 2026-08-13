@@ -5,11 +5,11 @@
 
 Official repository for our ACM MM 2026 paper **CRISPR**, accepted for publication.
 
-> **A first, simplified version of the core model code is now available (see
-> [Code](#code) below). Training scripts, evaluation scripts, and checkpoints
-> are being finalized for camera-ready and will follow. This page is the
-> permanent, citable home for the project — watch/star the repo to be notified
-> of updates.**
+> **The core model, training script, dataset loaders, and evaluation scripts
+> (including baselines) are now available (see [Code](#code) below). Model
+> checkpoints and step-by-step reproduction documentation are being finalized
+> for camera-ready and will follow. This page is the permanent, citable home
+> for the project — watch/star the repo to be notified of updates.**
 
 ## Abstract
 
@@ -22,12 +22,6 @@ amounting to roughly 0.1% of the 7B backbone.
 
 ## Code
 
-The `crispr/` directory currently contains the core model implementation:
-
-- `crispr/model_v7.py` — the CRISPR architecture: `TokenMixer` (Token Refiner),
-  `LocalC3` (Local Token Compressor + Global Token Fusion), and the top-level
-  `ImageC3ModelV7` model that wires them around a frozen Qwen2.5-VL decoder.
-
 ```bash
 pip install -r requirements.txt
 ```
@@ -38,10 +32,28 @@ from crispr import create_model_v7
 model = create_model_v7(decoder_path="./Qwen/Qwen2.5-VL-7B-Instruct")
 ```
 
-Note: this module depends on a local copy of the Qwen2.5-VL backbone weights
+- `crispr/model_v7.py` — the CRISPR architecture: `TokenMixer` (Token Refiner),
+  `LocalC3` (Local Token Compressor + Global Token Fusion), and the top-level
+  `ImageC3ModelV7` model that wires them around a frozen Qwen2.5-VL decoder.
+- `crispr/dataset.py`, `crispr/dataset_v3.py` — dataset loaders for training.
+- `crispr/baselines.py` — training-free compression baselines (VisionZip,
+  PruMerge+, FastV-style attention capture) used for comparison in the paper.
+  **License note:** this file is ported/adapted from a third-party project
+  (EffiVLM-Bench) whose license we have not been able to confirm — see
+  [NOTICE.md](NOTICE.md) before reusing it outside of research comparison.
+- `train_crispr_v7.py` — the training script (see docstring for stage-by-stage
+  usage: Stage-1a/1b/2/3).
+- `scripts/eval_crisp.py`, `scripts/eval_9x_quick.py` — evaluation scripts for
+  CRISPR / teacher / low-resolution baselines.
+- `scripts/eval_baselines.py` — evaluation script for the VisionZip/PruMerge+/FastV
+  baselines.
+
+Note: these scripts depend on a local copy of the Qwen2.5-VL backbone weights
 (not included in this repository — see [Qwen2.5-VL](https://github.com/QwenLM/Qwen2.5-VL)
-for download instructions). Training scripts, dataset loaders, evaluation
-scripts, and checkpoints will be added in subsequent updates.
+for download instructions) and on training/eval data prepared in the JSONL
+format described in the scripts' docstrings. Full step-by-step reproduction
+documentation, launch scripts, and checkpoints will be added in subsequent
+updates.
 
 ## Citation
 
@@ -81,10 +93,12 @@ de Janeiro, Brazil. ACM, New York, NY, USA. https://doi.org/10.1145/3767308.3835
 ## Roadmap
 
 - [x] Paper accepted, DOI reserved
-- [x] Core model code (simplified, `crispr/model_v7.py`)
-- [ ] Training and evaluation scripts
+- [x] Core model code (`crispr/model_v7.py`)
+- [x] Training script (`train_crispr_v7.py`) and dataset loaders
+- [x] Evaluation scripts, including baselines comparison
 - [ ] Model checkpoints (Qwen2.5-VL-7B and 3B backbones, 9x and 16x compression)
-- [ ] Reproduction-friendly documentation (environment, data prep, training, evaluation)
+- [ ] Reproduction-friendly documentation (environment, data prep, exact launch commands)
+- [ ] Resolve license status of the ported `crispr/baselines.py` (see [NOTICE.md](NOTICE.md))
 
 ## Naming Note
 
@@ -96,7 +110,8 @@ refer to the same method.
 
 Code in this repository is released under the [MIT License](LICENSE), unless
 otherwise noted in individual files or subdirectories (e.g. third-party assets
-with their own upstream licenses).
+with their own upstream licenses). See [NOTICE.md](NOTICE.md) for a
+third-party file whose license status is currently unresolved.
 
 ## Acknowledgements
 
