@@ -1,21 +1,26 @@
 # Third-Party Notices
 
 This repository's original code is released under the [MIT License](LICENSE).
-The following file is a ported/adapted derivative of third-party code and is
-called out separately:
 
-## `crispr/baselines.py`
+## Removed: baseline comparison code (`crispr/baselines.py`, `scripts/eval_baselines.py`)
 
-Ported and adapted from **EffiVLM-Bench** (`kv_cache_compression/qwen2vl_model.py`,
-`siglip_model.py`), adapted here from Qwen2-VL to Qwen2.5-VL-7B-Instruct for use
-as training-free comparison baselines (VisionZip, PruMerge+, FastV-style
-attention capture) in our paper's experiments.
+Our paper's comparisons against VisionZip, PruMerge+, and a FastV-style
+attention-capture baseline were run using code ported and adapted from
+[EffiVLM-Bench](https://github.com/EffiVLM-Bench/EffiVLM-Bench)
+(`kv_cache_compression/qwen2vl_model.py`, `siglip_model.py`), adapted from
+Qwen2-VL to Qwen2.5-VL-7B/3B-Instruct.
 
-**License status: unresolved.** We have not been able to confirm the license
-terms of EffiVLM-Bench at the time of this release. This file is included with
-attribution for research transparency and reproducibility of our comparison
-baselines, but its licensing may differ from the MIT license covering the rest
-of this repository. If you are the EffiVLM-Bench maintainers, or can point us
-to the applicable license, please open an issue — we will update this notice
-(and the file's license header, or remove/replace the file if required)
-accordingly.
+**These two files have been removed from this repository.** EffiVLM-Bench's
+GitHub repository does not declare a license, which by default means all
+rights are reserved by its authors — we are not able to confirm we have
+permission to redistribute a derivative of their code, so we removed it
+rather than keep it published without that permission.
+
+**To reproduce the baseline numbers in our paper:** obtain the relevant code
+directly from [EffiVLM-Bench](https://github.com/EffiVLM-Bench/EffiVLM-Bench)
+under their own terms, and adapt it to Qwen2.5-VL following the same approach
+we used (see the paper for method-level details of the VisionZip/PruMerge+/
+FastV configurations we evaluated). If you are an EffiVLM-Bench maintainer and
+can clarify the license, or grant permission to redistribute an adapted
+version, please open an issue on this repository — we would be glad to restore
+this code with proper licensing.
