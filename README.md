@@ -6,10 +6,12 @@
 Official repository for our ACM MM 2026 paper **CRISPR**, accepted for publication.
 
 > **The core model, training script, dataset loaders, and evaluation scripts
-> (including baselines) are now available (see [Code](#code) below). Model
-> checkpoints and step-by-step reproduction documentation are being finalized
-> for camera-ready and will follow. This page is the permanent, citable home
-> for the project — watch/star the repo to be notified of updates.**
+> (including baselines) are now available (see [Code](#code) below), along
+> with the Qwen2.5-VL-3B-backbone checkpoints (see [Checkpoints](#checkpoints)).
+> 7B-backbone checkpoints and step-by-step reproduction documentation are
+> being finalized for camera-ready and will follow. This page is the
+> permanent, citable home for the project — watch/star the repo to be
+> notified of updates.**
 
 ## Abstract
 
@@ -64,8 +66,14 @@ Note: these scripts depend on a local copy of the Qwen2.5-VL backbone weights
 (not included in this repository — see [Qwen2.5-VL](https://github.com/QwenLM/Qwen2.5-VL)
 for download instructions) and on training/eval data prepared in the JSONL
 format described in the scripts' docstrings. Full step-by-step reproduction
-documentation, launch scripts, and checkpoints will be added in subsequent
-updates.
+documentation and launch scripts will be added in subsequent updates.
+
+## Checkpoints
+
+CRISPR checkpoints (Qwen2.5-VL-3B-Instruct backbone, 9x and 16x compression)
+are hosted on Hugging Face: **[Rim2000/CRISPR](https://huggingface.co/Rim2000/CRISPR)**.
+Qwen2.5-VL-7B-Instruct backbone checkpoints will be added in a subsequent
+update.
 
 ## Citation
 
@@ -108,7 +116,8 @@ de Janeiro, Brazil. ACM, New York, NY, USA. https://doi.org/10.1145/3767308.3835
 - [x] Core model code (`crispr/model_v7.py`)
 - [x] Training script (`train_crispr_v7.py`) and dataset loaders
 - [x] Evaluation scripts, including baselines comparison
-- [ ] Model checkpoints (Qwen2.5-VL-7B and 3B backbones, 9x and 16x compression)
+- [x] Model checkpoints, Qwen2.5-VL-3B backbone, 9x and 16x compression (see [Checkpoints](#checkpoints))
+- [ ] Model checkpoints, Qwen2.5-VL-7B backbone
 - [ ] Reproduction-friendly documentation (environment, data prep, exact launch commands)
 - [ ] Resolve license status of the ported `crispr/baselines.py` (see [NOTICE.md](NOTICE.md))
 
