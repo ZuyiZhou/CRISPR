@@ -20,6 +20,18 @@ amounting to roughly 0.1% of the 7B backbone.
 
 <!-- TODO(camera-ready): paste final paper abstract here -->
 
+<p align="center">
+  <img src="assets/overview.png" width="55%" alt="Comparison of compression methods">
+</p>
+
+<p align="center"><sub>Comparison of compression methods. Token pruning and resolution downsampling lose fine-grained details, whereas CRISPR preserves them.</sub></p>
+
+<p align="center">
+  <img src="assets/architecture.png" width="85%" alt="CRISPR architecture">
+</p>
+
+<p align="center"><sub>CRISPR architecture: Token Refiner → Local Token Compressor (block cross-attention) → Global Token Fusion, trained via CE + KL + hidden-state distillation from a frozen Qwen2.5-VL teacher.</sub></p>
+
 ## Code
 
 ```bash
