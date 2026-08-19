@@ -1,14 +1,22 @@
-# CRISPR: Context-Refined Information Spatial Pooling with Region-awareness for Efficient Visual Token Compression in VLMs
+<div align="center">
 
-[![ACM MM 2026](https://img.shields.io/badge/ACM%20MM-2026-blue)](https://doi.org/10.1145/3767308.3835007)
+# CRISPR
+
+### Context-Refined Information Spatial Pooling with Region-awareness for Efficient Visual Token Compression in VLMs
+
+[![ACM MM 2026](https://img.shields.io/badge/ACM%20MM-2026-b31b1b.svg)](https://doi.org/10.1145/3767308.3835007)
+[![Paper DOI](https://img.shields.io/badge/DOI-10.1145%2F3767308.3835007-blue.svg)](https://doi.org/10.1145/3767308.3835007)
+[![Checkpoints](https://img.shields.io/badge/Checkpoints-Rim2000%2FCRISPR-orange)](https://huggingface.co/Rim2000/CRISPR)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/)
 
-Official repository for our ACM MM 2026 paper **CRISPR**, accepted for publication.
+Official repository for our ACM MM 2026 paper, accepted for publication.
 
-> **The core model, training script, dataset loaders, evaluation scripts,
-> checkpoints, and reproduction documentation are all available below. This
-> page is the permanent, citable home for the project — watch/star the repo
-> to be notified of updates.**
+**[Abstract](#abstract) · [Code](#code) · [Reproduction](#reproduction) · [Checkpoints](#checkpoints) · [Citation](#citation)**
+
+</div>
+
+---
 
 ## Abstract
 
@@ -30,6 +38,8 @@ amounting to roughly 0.1% of the 7B backbone.
 </p>
 
 <p align="center"><sub>CRISPR architecture: Token Refiner → Local Token Compressor (block cross-attention) → Global Token Fusion, trained via CE + KL + hidden-state distillation from a frozen Qwen2.5-VL teacher.</sub></p>
+
+---
 
 ## Code
 
@@ -58,6 +68,8 @@ whose repository declares no license (all rights reserved by default), so we
 removed it rather than redistribute it without permission — see
 [NOTICE.md](NOTICE.md). To reproduce those baseline numbers, get the code
 directly from EffiVLM-Bench and adapt it to Qwen2.5-VL as described there.
+
+---
 
 ## Reproduction
 
@@ -172,15 +184,19 @@ of the same evaluation logic kept for reference).
 Note: to reproduce the VisionZip/PruMerge+/FastV baseline numbers reported in
 the paper, see the note in [Code](#code) above regarding EffiVLM-Bench.
 
+---
+
 ## Checkpoints
 
 CRISPR checkpoints are hosted on Hugging Face: **[Rim2000/CRISPR](https://huggingface.co/Rim2000/CRISPR)**.
 
-| Backbone | Compression | |
-|---|---|---|
-| Qwen2.5-VL-3B-Instruct | 9x | `3b_9x/checkpoint.pt` |
-| Qwen2.5-VL-3B-Instruct | 16x | `3b_16x/checkpoint.pt` |
-| Qwen2.5-VL-7B-Instruct | 16x | `7b_16x/checkpoint.pt` |
+| Backbone | Compression | File |
+|---|:---:|---|
+| Qwen2.5-VL-3B-Instruct | 9x  | [`3b_9x/checkpoint.pt`](https://huggingface.co/Rim2000/CRISPR/tree/main/3b_9x) |
+| Qwen2.5-VL-3B-Instruct | 16x | [`3b_16x/checkpoint.pt`](https://huggingface.co/Rim2000/CRISPR/tree/main/3b_16x) |
+| Qwen2.5-VL-7B-Instruct | 16x | [`7b_16x/checkpoint.pt`](https://huggingface.co/Rim2000/CRISPR/tree/main/7b_16x) |
+
+---
 
 ## Citation
 
@@ -210,38 +226,27 @@ de Janeiro, Brazil. ACM, New York, NY, USA. https://doi.org/10.1145/3767308.3835
 }
 ```
 
+---
+
 ## Authors & Affiliations
 
-- **Zuyi Zhou** — <zuyi.zhou@evermind.ai> — Institute of Automation, Chinese Academy of Sciences; University of Chinese Academy of Sciences; EverMind AI
-- **Dizhan Xue** — <dizhan.xue@evermind.ai> — Institute of Automation, Chinese Academy of Sciences; University of Chinese Academy of Sciences; EverMind AI
-- **Shengsheng Qian** (Corresponding author) — <shengsheng.qian@nlpr.ia.ac.cn> — Institute of Automation, Chinese Academy of Sciences; University of Chinese Academy of Sciences
-- **Changsheng Xu** — <csxu@nlpr.ia.ac.cn> — Institute of Automation, Chinese Academy of Sciences; University of Chinese Academy of Sciences; Peng Cheng Laboratory
+| | | |
+|---|---|---|
+| **Zuyi Zhou** | <zuyi.zhou@evermind.ai> | IA, CAS · UCAS · EverMind AI |
+| **Dizhan Xue** | <dizhan.xue@evermind.ai> | IA, CAS · UCAS · EverMind AI |
+| **Shengsheng Qian** \* | <shengsheng.qian@nlpr.ia.ac.cn> | IA, CAS · UCAS |
+| **Changsheng Xu** | <csxu@nlpr.ia.ac.cn> | IA, CAS · UCAS · Peng Cheng Laboratory |
 
-## Roadmap
+<sub>\* Corresponding author · IA, CAS = Institute of Automation, Chinese Academy of Sciences · UCAS = University of Chinese Academy of Sciences</sub>
 
-- [x] Paper accepted, DOI reserved
-- [x] Core model code (`crispr/model_v7.py`)
-- [x] Training script (`train_crispr_v7.py`) and dataset loaders
-- [x] Evaluation scripts
-- [x] Model checkpoints, Qwen2.5-VL-3B backbone, 9x and 16x compression (see [Checkpoints](#checkpoints))
-- [x] Model checkpoints, Qwen2.5-VL-7B backbone, 16x compression
-- [x] Reproduction-friendly documentation (environment, data prep, exact launch commands — see [Reproduction](#reproduction))
+---
 
-## Naming Note
+<sub>
 
-The paper uses **CRISPR** as the method name. Some historical code/comments may
-still refer to the earlier internal codename **CRISP** / **ImageC3** — these
-refer to the same method.
+**Naming.** The paper uses **CRISPR** as the method name. Some historical code/comments may still refer to the earlier internal codename **CRISP** / **ImageC3** — these refer to the same method.
 
-## License
+**License.** Code in this repository is released under the [MIT License](LICENSE), unless otherwise noted in individual files or subdirectories (e.g. third-party assets with their own upstream licenses). See [NOTICE.md](NOTICE.md) for a note on baseline-comparison code that was removed rather than redistributed without a confirmed license.
 
-Code in this repository is released under the [MIT License](LICENSE), unless
-otherwise noted in individual files or subdirectories (e.g. third-party assets
-with their own upstream licenses). See [NOTICE.md](NOTICE.md) for a note on
-baseline-comparison code that was removed rather than redistributed without
-a confirmed license.
+**Acknowledgements.** This work builds on [Qwen2.5-VL](https://github.com/QwenLM/Qwen2.5-VL). We thank the authors of Qwen2.5-VL and the datasets used in this work.
 
-## Acknowledgements
-
-This work builds on [Qwen2.5-VL](https://github.com/QwenLM/Qwen2.5-VL). We
-thank the authors of Qwen2.5-VL and the datasets used in this work.
+</sub>
