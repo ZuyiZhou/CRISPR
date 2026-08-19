@@ -20,12 +20,26 @@ Official repository for our ACM MM 2026 paper, accepted for publication.
 
 ## Abstract
 
-CRISPR is a visual token compression method for Vision-Language Models (VLMs).
-It achieves 9x/16x token compression via 3x3 block cross-attention, distilled
-from a frozen Qwen2.5-VL-7B/3B-Instruct teacher, with trainable parameters
-amounting to roughly 0.1% of the 7B backbone.
-
-<!-- TODO(camera-ready): paste final paper abstract here -->
+Vision-language models (VLMs) generate hundreds to thousands of visual tokens
+per image, leading to high computational cost and memory consumption during
+multimodal reasoning. A common efficiency strategy is to reduce input
+resolution; however, pixel-level downsampling often removes fine-grained
+semantic information and degrades performance on downstream tasks. We propose
+CRISPR, a context-refined information spatial pooling framework for efficient
+visual token compression. Instead of reducing image resolution, CRISPR
+operates on encoded visual representations and compresses them into a smaller
+set of topology-preserving tokens. A *Token Refiner* first enriches local
+tokens with global context through self-attention, followed by a *Local Token
+Compressor* that performs block-wise cross-attention aggregation while
+maintaining spatial coherence, and a *Global Token Fusion* module that enables
+information exchange among compressed tokens. CRISPR supports controllable
+efficiency–accuracy trade-offs through the block-size parameter; in this
+paper, we evaluate 9× and 16× token reduction. Extensive experiments on
+multimodal benchmarks, including visual question answering and image
+captioning, demonstrate that CRISPR consistently outperforms low-resolution
+baselines at comparable or lower computational cost. The proposed approach
+reduces both inference complexity and memory footprint, providing a practical
+solution for scalable multimodal systems.
 
 <p align="center">
   <img src="assets/overview.png" width="55%" alt="Comparison of compression methods">
