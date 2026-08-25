@@ -246,8 +246,8 @@ de Janeiro, Brazil. ACM, New York, NY, USA. https://doi.org/10.1145/3767308.3835
 
 | | | |
 |---|---|---|
-| **Zuyi Zhou** | <zuyi.zhou@evermind.ai> | IA, CAS · UCAS · EverMind AI |
-| **Dizhan Xue** | <dizhan.xue@evermind.ai> | IA, CAS · UCAS · EverMind AI |
+| **Zuyi Zhou** | <zuyi.zhou@evermind.ai> | EverMind AI |
+| **Dizhan Xue** | <dizhan.xue@evermind.ai> | EverMind AI |
 | **Shengsheng Qian** \* | <shengsheng.qian@nlpr.ia.ac.cn> | IA, CAS · UCAS |
 | **Changsheng Xu** | <csxu@nlpr.ia.ac.cn> | IA, CAS · UCAS · Peng Cheng Laboratory |
 
