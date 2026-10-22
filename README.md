@@ -87,6 +87,8 @@ directly from EffiVLM-Bench and adapt it to Qwen2.5-VL as described there.
 
 ## Reproduction
 
+This section covers the original Qwen2.5-VL release. For the Qwen3.5 checkpoints, see [the Qwen3.5 guide](qwen35/README.md).
+
 ### Environment
 
 - Python 3.12, PyTorch 2.10+ (cu128), `transformers>=4.56.1` (see `requirements.txt`)
@@ -202,6 +204,8 @@ the paper, see the note in [Code](#code) above regarding EffiVLM-Bench.
 
 ## Checkpoints
 
+### Qwen2.5-VL checkpoints
+
 CRISPR checkpoints are hosted on Hugging Face: **[Rim2000/CRISPR](https://huggingface.co/Rim2000/CRISPR)**.
 
 | Backbone | Compression | File |
@@ -209,6 +213,24 @@ CRISPR checkpoints are hosted on Hugging Face: **[Rim2000/CRISPR](https://huggin
 | Qwen2.5-VL-3B-Instruct | 9x  | [`3b_9x/checkpoint.pt`](https://huggingface.co/Rim2000/CRISPR/tree/main/3b_9x) |
 | Qwen2.5-VL-3B-Instruct | 16x | [`3b_16x/checkpoint.pt`](https://huggingface.co/Rim2000/CRISPR/tree/main/3b_16x) |
 | Qwen2.5-VL-7B-Instruct | 16x | [`7b_16x/checkpoint.pt`](https://huggingface.co/Rim2000/CRISPR/tree/main/7b_16x) |
+
+### Qwen3.5 checkpoints
+
+Additional CRISPR checkpoints are available for Qwen3.5-4B and Qwen3.5-9B,
+with a fixed visual-token budget per image.
+
+| Backbone | Visual tokens per image | Checkpoint |
+|---|---:|---|
+| Qwen3.5-4B | 16 | [`qwen3.5-4b-16tokens`](https://huggingface.co/Rim2000/CRISPR/tree/main/qwen3.5-4b-16tokens) |
+| Qwen3.5-4B | 36 | [`qwen3.5-4b-36tokens`](https://huggingface.co/Rim2000/CRISPR/tree/main/qwen3.5-4b-36tokens) |
+| Qwen3.5-4B | 64 | [`qwen3.5-4b-64tokens`](https://huggingface.co/Rim2000/CRISPR/tree/main/qwen3.5-4b-64tokens) |
+| Qwen3.5-9B | 36 | [`qwen3.5-9b-36tokens`](https://huggingface.co/Rim2000/CRISPR/tree/main/qwen3.5-9b-36tokens) |
+| Qwen3.5-9B | 64 | [`qwen3.5-9b-64tokens`](https://huggingface.co/Rim2000/CRISPR/tree/main/qwen3.5-9b-64tokens) |
+
+Each directory contains float32 safetensors weights, an inference configuration,
+and SHA-256 checksums. See [the Qwen3.5 guide](qwen35/README.md) for downloading,
+loading, and the compressor interface. These files contain the CRISPR modules;
+the Qwen3.5 backbones are downloaded separately.
 
 ---
 

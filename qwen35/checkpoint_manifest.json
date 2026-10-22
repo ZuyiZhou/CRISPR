@@ -1,0 +1,55 @@
+{
+  "format_version": 1,
+  "checkpoints": [
+    {
+      "directory": "qwen3.5-4b-16tokens",
+      "base_model": "Qwen/Qwen3.5-4B",
+      "num_visual_tokens": 16,
+      "hidden_size": 2560,
+      "tensor_count": 56,
+      "parameters": 393408001,
+      "bytes": 1573638236,
+      "sha256": "44c1e1bb7c4a734950aba990c7b4889bca0ec713191656272bf5affb4c878130"
+    },
+    {
+      "directory": "qwen3.5-4b-36tokens",
+      "base_model": "Qwen/Qwen3.5-4B",
+      "num_visual_tokens": 36,
+      "hidden_size": 2560,
+      "tensor_count": 56,
+      "parameters": 393408001,
+      "bytes": 1573638236,
+      "sha256": "2b0891f3936ff6a3677c54c1971a48ef9db2ffa182ce19df36c911706d3d4561"
+    },
+    {
+      "directory": "qwen3.5-4b-64tokens",
+      "base_model": "Qwen/Qwen3.5-4B",
+      "num_visual_tokens": 64,
+      "hidden_size": 2560,
+      "tensor_count": 56,
+      "parameters": 393408001,
+      "bytes": 1573638236,
+      "sha256": "019b79b778cd314f2abe6b6bc25a4722b266557492aeef0450781dfabe0b6df5"
+    },
+    {
+      "directory": "qwen3.5-9b-36tokens",
+      "base_model": "Qwen/Qwen3.5-9B",
+      "num_visual_tokens": 36,
+      "hidden_size": 4096,
+      "tensor_count": 56,
+      "parameters": 1006940161,
+      "bytes": 4027766940,
+      "sha256": "38622869becafccb22eca44ad4fb8ed5696fef5fe80f3969330377a5af02282d"
+    },
+    {
+      "directory": "qwen3.5-9b-64tokens",
+      "base_model": "Qwen/Qwen3.5-9B",
+      "num_visual_tokens": 64,
+      "hidden_size": 4096,
+      "tensor_count": 56,
+      "parameters": 1006940161,
+      "bytes": 4027766940,
+      "sha256": "f42a7ab87be341c948499e393b850a03efd8216f01e7997d9891dc74a6908387"
+    }
+  ]
+}
