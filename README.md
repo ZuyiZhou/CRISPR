@@ -13,15 +13,15 @@
 </p>
 
 <p align="center">
-  <a href="https://doi.org/10.1145/3767308.3835007"><img src="https://img.shields.io/badge/ACM_MM-2026-136F63?style=flat-square&amp;labelColor=253746" alt="ACM MM 2026"></a>
-  <a href="https://doi.org/10.1145/3767308.3835007"><img src="https://img.shields.io/badge/Paper-DOI-136F63?style=flat-square&amp;labelColor=253746" alt="Read the paper"></a>
+  <a href="#paper-status"><img src="https://img.shields.io/badge/ACM_MM-2026-136F63?style=flat-square&amp;labelColor=253746" alt="ACM MM 2026"></a>
+  <a href="#paper-status"><img src="https://img.shields.io/badge/Paper-Coming_soon-D39757?style=flat-square&amp;labelColor=253746" alt="Paper coming soon"></a>
   <a href="https://huggingface.co/Rim2000/CRISPR"><img src="https://img.shields.io/badge/Hugging_Face-Checkpoints-D39757?style=flat-square&amp;labelColor=253746" alt="Checkpoints on Hugging Face"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-73869B?style=flat-square&amp;labelColor=253746" alt="MIT License"></a>
 </p>
 
 <p align="center">
   Zuyi Zhou · Dizhan Xue · Shengsheng Qian · Changsheng Xu<br>
-  <sub>EverMind AI · Institute of Automation, CAS · UCAS · Peng Cheng Laboratory</sub>
+  <sub>EverMind AI · Institute of Automation, CAS · UCAS</sub>
 </p>
 
 <p align="center">
@@ -32,6 +32,12 @@
   <a href="docs/README.md">Documentation</a> ·
   <a href="#citation">Citation</a>
 </p>
+
+<a id="paper-status"></a>
+
+> **Paper & DOI — coming soon.** The DOI is not active yet and is expected to
+> become available closer to ACM Multimedia 2026. The paper will also be
+> released publicly around that time.
 
 <a id="abstract"></a>
 
@@ -160,7 +166,7 @@ If you use CRISPR in your research, please cite our paper:
 }
 ```
 
-[Paper DOI](https://doi.org/10.1145/3767308.3835007) · [Citation file](CITATION.cff)
+[DOI (activation pending)](https://doi.org/10.1145/3767308.3835007) · [Citation file](CITATION.cff)
 
 ## Authors
 
@@ -169,7 +175,7 @@ If you use CRISPR in your research, please cite our paper:
 | [Zuyi Zhou](mailto:zuyi.zhou@evermind.ai) | EverMind AI |
 | [Dizhan Xue](mailto:dizhan.xue@evermind.ai) | EverMind AI |
 | [Shengsheng Qian](mailto:shengsheng.qian@nlpr.ia.ac.cn) · corresponding author | Institute of Automation, CAS · UCAS |
-| [Changsheng Xu](mailto:csxu@nlpr.ia.ac.cn) | Institute of Automation, CAS · UCAS · Peng Cheng Laboratory |
+| [Changsheng Xu](mailto:csxu@nlpr.ia.ac.cn) | Institute of Automation, CAS · UCAS |
 
 ## License and acknowledgements
 
