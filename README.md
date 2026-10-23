@@ -1,252 +1,150 @@
-<div align="center">
-
-# CRISPR
-
-### Context-Refined Information Spatial Pooling with Region-awareness for Efficient Visual Token Compression in VLMs
-
-[![ACM MM 2026](https://img.shields.io/badge/ACM%20MM-2026-b31b1b.svg)](https://doi.org/10.1145/3767308.3835007)
-[![Paper DOI](https://img.shields.io/badge/DOI-10.1145%2F3767308.3835007-blue.svg)](https://doi.org/10.1145/3767308.3835007)
-[![Checkpoints](https://img.shields.io/badge/Checkpoints-Rim2000%2FCRISPR-orange)](https://huggingface.co/Rim2000/CRISPR)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/)
-
-Official repository for our ACM MM 2026 paper, accepted for publication.
-
-**[Abstract](#abstract) · [Code](#code) · [Reproduction](#reproduction) · [Checkpoints](#checkpoints) · [Citation](#citation)**
-
-</div>
-
----
-
-## Abstract
-
-Vision-language models (VLMs) generate hundreds to thousands of visual tokens
-per image, leading to high computational cost and memory consumption during
-multimodal reasoning. A common efficiency strategy is to reduce input
-resolution; however, pixel-level downsampling often removes fine-grained
-semantic information and degrades performance on downstream tasks. We propose
-CRISPR, a context-refined information spatial pooling framework for efficient
-visual token compression. Instead of reducing image resolution, CRISPR
-operates on encoded visual representations and compresses them into a smaller
-set of topology-preserving tokens. A *Token Refiner* first enriches local
-tokens with global context through self-attention, followed by a *Local Token
-Compressor* that performs block-wise cross-attention aggregation while
-maintaining spatial coherence, and a *Global Token Fusion* module that enables
-information exchange among compressed tokens. CRISPR supports controllable
-efficiency–accuracy trade-offs through the block-size parameter; in this
-paper, we evaluate 9× and 16× token reduction. Extensive experiments on
-multimodal benchmarks, including visual question answering and image
-captioning, demonstrate that CRISPR consistently outperforms low-resolution
-baselines at comparable or lower computational cost. The proposed approach
-reduces both inference complexity and memory footprint, providing a practical
-solution for scalable multimodal systems.
-
 <p align="center">
-  <img src="assets/overview.png" width="55%" alt="Comparison of compression methods">
+  <picture>
+    <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="assets/banner-mobile-dark.svg">
+    <source media="(max-width: 600px)" srcset="assets/banner-mobile-light.svg">
+    <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="assets/banner-light.svg">
+    <img src="assets/banner-light.svg" width="100%" alt="CRISPR — visual token compression for vision-language models. Refine, compress, fuse.">
+  </picture>
 </p>
 
-<p align="center"><sub>Comparison of compression methods. Token pruning and resolution downsampling lose fine-grained details, whereas CRISPR preserves them.</sub></p>
-
 <p align="center">
-  <img src="assets/architecture.png" width="85%" alt="CRISPR architecture">
+  <strong>Context-Refined Information Spatial Pooling with Region-awareness<br>for Efficient Visual Token Compression in VLMs</strong>
 </p>
 
-<p align="center"><sub>CRISPR architecture: Token Refiner → Local Token Compressor (block cross-attention) → Global Token Fusion, trained via CE + KL + hidden-state distillation from a frozen Qwen2.5-VL teacher.</sub></p>
+<p align="center">
+  <a href="https://doi.org/10.1145/3767308.3835007"><img src="https://img.shields.io/badge/ACM_MM-2026-136F63?style=flat-square&amp;labelColor=253746" alt="ACM MM 2026"></a>
+  <a href="https://doi.org/10.1145/3767308.3835007"><img src="https://img.shields.io/badge/Paper-DOI-136F63?style=flat-square&amp;labelColor=253746" alt="Read the paper"></a>
+  <a href="https://huggingface.co/Rim2000/CRISPR"><img src="https://img.shields.io/badge/Hugging_Face-Checkpoints-D39757?style=flat-square&amp;labelColor=253746" alt="Checkpoints on Hugging Face"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-73869B?style=flat-square&amp;labelColor=253746" alt="MIT License"></a>
+</p>
 
----
+<p align="center">
+  Zuyi Zhou · Dizhan Xue · Shengsheng Qian · Changsheng Xu<br>
+  <sub>EverMind AI · Institute of Automation, CAS · UCAS · Peng Cheng Laboratory</sub>
+</p>
 
-## Code
+<p align="center">
+  <a href="#overview">Overview</a> ·
+  <a href="#method">Method</a> ·
+  <a href="#quick-start">Quick start</a> ·
+  <a href="#checkpoints">Checkpoints</a> ·
+  <a href="docs/README.md">Documentation</a> ·
+  <a href="#citation">Citation</a>
+</p>
+
+<a id="abstract"></a>
+
+## Overview
+
+**CRISPR compresses visual tokens while retaining their spatial organization.**
+It operates on encoded image features, using local aggregation and global
+context to produce a shorter sequence for a frozen vision-language model.
+This is the official repository for our paper accepted at **ACM Multimedia 2026**.
+
+| Spatial structure | Image-level reuse | Frozen backbone |
+|---|---|---|
+| Aggregate neighboring tokens and preserve block-center positions. | Compress image features independently of the text prompt. | Place CRISPR between the vision encoder and language decoder. |
+
+## Method
+
+<p align="center">
+  <picture>
+    <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="assets/method-mobile-dark.svg">
+    <source media="(max-width: 600px)" srcset="assets/method-mobile-light.svg">
+    <source media="(prefers-color-scheme: dark)" srcset="assets/method-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="assets/method-light.svg">
+    <img src="assets/method-light.svg" width="100%" alt="Encoded image features pass through Token Refiner, Local Token Compressor, and Global Token Fusion to form a compact spatial token sequence.">
+  </picture>
+</p>
+
+1. **Refine.** The Token Refiner (TR) exchanges global context before compression.
+2. **Compress.** The Local Token Compressor (LTC) aggregates each spatial block through cross-attention.
+3. **Fuse.** Global Token Fusion (GTF) exchanges information among the compressed tokens.
+
+<details>
+<summary><strong>View the architecture from the original paper</strong></summary>
+
+<p align="center">
+  <img src="assets/architecture.png" width="100%" alt="Original CRISPR architecture: frozen vision encoder and language decoder, with Token Refiner, Local Token Compressor, and Global Token Fusion.">
+</p>
+
+</details>
+
+<details>
+<summary><strong>View the visual example from the original paper</strong></summary>
+
+<p align="center">
+  <img src="assets/overview.png" width="600" alt="Illustrative license-plate question comparing spatial token compression, token pruning, and image downsampling.">
+</p>
+
+</details>
+
+## Quick start
+
+Clone the repository, then choose the guide for your backbone:
+
+```bash
+git clone https://github.com/ZuyiZhou/CRISPR.git
+cd CRISPR
+```
+
+**Qwen2.5-VL · Original paper implementation**
 
 ```bash
 pip install -r requirements.txt
 ```
 
-```python
-from crispr import create_model_v7
+[Environment, training, and evaluation →](docs/reproduction.md)
 
-model = create_model_v7(decoder_path="./Qwen/Qwen2.5-VL-7B-Instruct")
-```
-
-- `crispr/model_v7.py` — the CRISPR architecture: `TokenMixer` (Token Refiner),
-  `LocalC3` (Local Token Compressor + Global Token Fusion), and the top-level
-  `ImageC3ModelV7` model that wires them around a frozen Qwen2.5-VL decoder.
-- `crispr/dataset.py`, `crispr/dataset_v3.py` — dataset loaders for training.
-- `train_crispr_v7.py` — the training script (see docstring for stage-by-stage
-  usage: Stage-1a/1b/2/3).
-- `scripts/eval_crisp.py`, `scripts/eval_9x_quick.py` — evaluation scripts for
-  CRISPR / teacher / low-resolution baselines.
-
-**Not included:** the VisionZip / PruMerge+ / FastV baseline comparison code
-used in the paper was ported from [EffiVLM-Bench](https://github.com/EffiVLM-Bench/EffiVLM-Bench),
-whose repository declares no license (all rights reserved by default), so we
-removed it rather than redistribute it without permission — see
-[NOTICE.md](NOTICE.md). To reproduce those baseline numbers, get the code
-directly from EffiVLM-Bench and adapt it to Qwen2.5-VL as described there.
-
----
-
-## Reproduction
-
-This section covers the original Qwen2.5-VL release. For the Qwen3.5 checkpoints, see [the Qwen3.5 guide](qwen35/README.md).
-
-### Environment
-
-- Python 3.12, PyTorch 2.10+ (cu128), `transformers>=4.56.1` (see `requirements.txt`)
-- Download the backbone weights and point `--decoder_path` at them:
-  - `./Qwen/Qwen2.5-VL-7B-Instruct` or `./Qwen/Qwen2.5-VL-3B-Instruct`, from
-    [Qwen2.5-VL](https://github.com/QwenLM/Qwen2.5-VL) (e.g. via
-    `huggingface-cli download Qwen/Qwen2.5-VL-7B-Instruct --local-dir ./Qwen/Qwen2.5-VL-7B-Instruct`)
-  - If `huggingface.co` is unreachable, set `HF_ENDPOINT=https://hf-mirror.com`
-    before downloading/running (both `train_crispr_v7.py` and the eval scripts
-    already set this as a default if unset).
-- `attn_implementation="eager"` is required — SDPA is not compatible with the
-  custom `inputs_embeds`/3D position_ids used here.
-
-### Data preparation
-
-Training data is a JSONL file, one example per line:
-
-```json
-{"id": "unique_id", "image": "path/to/image.jpg", "conversations": [{"role": "user", "content": "question"}, {"role": "assistant", "content": "answer"}], "source": "dataset_name"}
-```
-
-The `source` field is used to auto-select a task-specific prompt template
-(e.g. OCR-style datasets get a specialized prompt) — see `MultiTaskDataset`
-in `train_crispr_v7.py`. Evaluation datasets are expected under `--data_root`
-(default `./data/eval`) in the layout each `load_*` function in
-`scripts/eval_crisp.py` / `scripts/eval_9x_quick.py` expects (grep for
-`def load_<dataset>` to see the exact file/column names for a given dataset).
-
-### Training
-
-`local_c3_block_size` sets the compression ratio: `3` → 9x (3×3 blocks), `4` → 16x (4×4 blocks).
+**Qwen3.5 · Fixed-budget visual compressor**
 
 ```bash
-# Stage-1a: warm up LocalC3 only, TokenMixer frozen
-python3.12 train_crispr_v7.py \
-    --data_path ./data/train/stage1_caption/combined.jsonl \
-    --output_dir ./outputs/crispr_9x_stage1a \
-    --decoder_path ./Qwen/Qwen2.5-VL-7B-Instruct \
-    --local_c3_block_size 3 \
-    --epochs 1 --freeze_token_mixer --use_hidden_distillation
-
-# Stage-1b: train TokenMixer + LocalC3 jointly
-python3.12 train_crispr_v7.py \
-    --data_path ./data/train/stage2_mixed/combined_v4.jsonl \
-    --output_dir ./outputs/crispr_9x_stage1b \
-    --decoder_path ./Qwen/Qwen2.5-VL-7B-Instruct \
-    --local_c3_block_size 3 \
-    --epochs 3 \
-    --resume_from ./outputs/crispr_9x_stage1a/checkpoint-best \
-    --use_hidden_distillation
-
-# Stage-2: multi-GPU, + hidden-state distillation schedule, + 3D RoPE alignment
-torchrun --nproc_per_node=4 --master_port=29501 train_crispr_v7.py \
-    --data_path ./data/train/stage2_mixed/combined_v4.jsonl \
-    --output_dir ./outputs/crispr_9x_stage2 \
-    --decoder_path ./Qwen/Qwen2.5-VL-7B-Instruct \
-    --local_c3_block_size 3 \
-    --epochs 3 --batch_size 1 --gradient_accumulation_steps 16 \
-    --lr_local_c3 1e-5 --lr_token_mixer 1e-5 \
-    --resume_from ./outputs/crispr_9x_stage1b/checkpoint-best \
-    --use_hidden_distillation --hidden_loss_weight 0.1 --hidden_loss_weight_final 0.3
-
-# Resume with full trainer state (weights + optimizer + epoch) after a crash
-torchrun --nproc_per_node=4 train_crispr_v7.py \
-    --resume_training_from ./outputs/crispr_9x_stage2/checkpoint-step_XXXX \
-    ...  # same args as the run being resumed
+pip install -r qwen35/requirements.txt
 ```
 
-For 16x, pass `--local_c3_block_size 4` and `--decoder_path` for the 3B
-backbone if reproducing that configuration; per-module learning rates default
-to `--lr_local_c3 1e-4`, `--lr_token_mixer 5e-5`, `--lr_decoder_lora 1e-5`
-(AdamW, linear warmup + decay, grad clip 1.0). Loss is
-`CE + 0.5·KL(T=1.0) + hidden_weight·Hidden(MSE on last decoder layers)`,
-with `hidden_weight` scheduled linearly from `--hidden_loss_weight` to
-`--hidden_loss_weight_final` across training.
+[Download and load the compressor →](qwen35/README.md#download-and-load)
 
-### Evaluation
+Download the matching backbone separately. Each guide explains its model
+interface and checkpoint loading requirements.
 
-```bash
-# CRISPR, 7B backbone, 9x — full benchmark suite
-CUDA_VISIBLE_DEVICES=0,1,2,3 python3.12 scripts/eval_crisp.py \
-    --methods image_c3 \
-    --decoder_path ./Qwen/Qwen2.5-VL-7B-Instruct \
-    --image_c3_ckpt ./outputs/crispr_9x_stage2/checkpoint-best \
-    --block_size 3 \
-    --datasets mmmu mmbench chartqa docvqa textvqa realworldqa mathvista ocrbench mme scienceqa \
-    --n 0 --output_dir eval_results/crisp/9x
+<a id="code"></a>
+<a id="reproduction"></a>
 
-# CRISPR, 3B backbone, 9x
-python3.12 scripts/eval_crisp.py \
-    --methods image_c3 \
-    --decoder_path ./Qwen/Qwen2.5-VL-3B-Instruct \
-    --image_c3_ckpt ./outputs/crispr_3b_9x/checkpoint-best \
-    --block_size 3 \
-    --datasets mmmu mmbench chartqa docvqa textvqa mme scienceqa \
-    --n 0 --output_dir eval_results/crisp/3b_9x
-
-# Teacher (uncompressed upper bound) and LowRes baseline use the same script
-python3.12 scripts/eval_crisp.py --methods teacher lowres \
-    --datasets mmmu mmbench chartqa --n 0 --output_dir eval_results/reference
-```
-
-`--n 0` evaluates the full dataset; use a smaller `--n` for a quick sanity
-check. Results land at `eval_results/{method}/{ratio}/{dataset}/results.json`.
-See each script's module docstring for the complete dataset list and more
-usage examples (`scripts/eval_9x_quick.py` is an earlier, 9x/7B-only variant
-of the same evaluation logic kept for reference).
-
-Note: to reproduce the VisionZip/PruMerge+/FastV baseline numbers reported in
-the paper, see the note in [Code](#code) above regarding EffiVLM-Bench.
-
----
+**Working with the original paper?** The [Qwen2.5-VL reproduction guide](docs/reproduction.md)
+contains the environment setup, data format, published training commands, and
+evaluation examples.
 
 ## Checkpoints
 
-### Qwen2.5-VL checkpoints
+All released weights are hosted on **[Hugging Face · Rim2000/CRISPR](https://huggingface.co/Rim2000/CRISPR)**.
 
-CRISPR checkpoints are hosted on Hugging Face: **[Rim2000/CRISPR](https://huggingface.co/Rim2000/CRISPR)**.
+| Backbone | Available configurations | Loading guide |
+|---|---|---|
+| Qwen2.5-VL-3B-Instruct | 9× · 16× compression | [Qwen2.5-VL](docs/reproduction.md) |
+| Qwen2.5-VL-7B-Instruct | 16× compression | [Qwen2.5-VL](docs/reproduction.md) |
+| Qwen3.5-4B | 16 · 36 · 64 visual tokens per image | [Qwen3.5](qwen35/README.md) |
+| Qwen3.5-9B | 36 · 64 visual tokens per image | [Qwen3.5](qwen35/README.md) |
 
-| Backbone | Compression | File |
-|---|:---:|---|
-| Qwen2.5-VL-3B-Instruct | 9x  | [`3b_9x/checkpoint.pt`](https://huggingface.co/Rim2000/CRISPR/tree/main/3b_9x) |
-| Qwen2.5-VL-3B-Instruct | 16x | [`3b_16x/checkpoint.pt`](https://huggingface.co/Rim2000/CRISPR/tree/main/3b_16x) |
-| Qwen2.5-VL-7B-Instruct | 16x | [`7b_16x/checkpoint.pt`](https://huggingface.co/Rim2000/CRISPR/tree/main/7b_16x) |
+[Browse every checkpoint →](docs/checkpoints.md)
 
-### Qwen3.5 checkpoints
+## Repository map
 
-Additional CRISPR checkpoints are available for Qwen3.5-4B and Qwen3.5-9B,
-with a fixed visual-token budget per image.
+| Path | What you will find |
+|---|---|
+| [`crispr/`](crispr/) | Original Qwen2.5-VL model and dataset loaders |
+| [`qwen35/`](qwen35/) | Qwen3.5 compressor, loading guide, and checkpoint manifest |
+| [`scripts/`](scripts/) | Evaluation scripts for CRISPR, original-image, and low-resolution models |
+| [`train_crispr_v7.py`](train_crispr_v7.py) | Original Qwen2.5-VL training entry point |
+| [`docs/`](docs/) | Documentation index, reproduction guide, and checkpoint directory |
+| [`CITATION.cff`](CITATION.cff) | Machine-readable citation |
 
-| Backbone | Visual tokens per image | Checkpoint |
-|---|---:|---|
-| Qwen3.5-4B | 16 | [`qwen3.5-4b-16tokens`](https://huggingface.co/Rim2000/CRISPR/tree/main/qwen3.5-4b-16tokens) |
-| Qwen3.5-4B | 36 | [`qwen3.5-4b-36tokens`](https://huggingface.co/Rim2000/CRISPR/tree/main/qwen3.5-4b-36tokens) |
-| Qwen3.5-4B | 64 | [`qwen3.5-4b-64tokens`](https://huggingface.co/Rim2000/CRISPR/tree/main/qwen3.5-4b-64tokens) |
-| Qwen3.5-9B | 36 | [`qwen3.5-9b-36tokens`](https://huggingface.co/Rim2000/CRISPR/tree/main/qwen3.5-9b-36tokens) |
-| Qwen3.5-9B | 64 | [`qwen3.5-9b-64tokens`](https://huggingface.co/Rim2000/CRISPR/tree/main/qwen3.5-9b-64tokens) |
-
-Each directory contains float32 safetensors weights, an inference configuration,
-and SHA-256 checksums. See [the Qwen3.5 guide](qwen35/README.md) for downloading,
-loading, and the compressor interface. These files contain the CRISPR modules;
-the Qwen3.5 backbones are downloaded separately.
-
----
+For questions, start with the [documentation and FAQ](docs/README.md).
+Bug reports and contributions are welcome; see [Contributing](CONTRIBUTING.md).
 
 ## Citation
 
-If you find this work useful, please cite:
-
-**ACM Reference Format:**
-
-Zuyi Zhou, Dizhan Xue, Shengsheng Qian, and Changsheng Xu. 2026. CRISPR:
-Context-Refined Information Spatial Pooling with Region-awareness for
-Efficient Visual Token Compression in VLMs. In Proceedings of the 34th ACM
-International Conference on Multimedia (MM '26), November 10-14, 2026, Rio
-de Janeiro, Brazil. ACM, New York, NY, USA. https://doi.org/10.1145/3767308.3835007
-
-**BibTeX:**
+If you use CRISPR in your research, please cite our paper:
 
 ```bibtex
 @inproceedings{zhou2026crispr,
@@ -262,27 +160,31 @@ de Janeiro, Brazil. ACM, New York, NY, USA. https://doi.org/10.1145/3767308.3835
 }
 ```
 
----
+[Paper DOI](https://doi.org/10.1145/3767308.3835007) · [Citation file](CITATION.cff)
 
-## Authors & Affiliations
+## Authors
 
-| | | |
-|---|---|---|
-| **Zuyi Zhou** | <zuyi.zhou@evermind.ai> | EverMind AI |
-| **Dizhan Xue** | <dizhan.xue@evermind.ai> | EverMind AI |
-| **Shengsheng Qian** \* | <shengsheng.qian@nlpr.ia.ac.cn> | IA, CAS · UCAS |
-| **Changsheng Xu** | <csxu@nlpr.ia.ac.cn> | IA, CAS · UCAS · Peng Cheng Laboratory |
+| Author | Affiliation |
+|---|---|
+| [Zuyi Zhou](mailto:zuyi.zhou@evermind.ai) | EverMind AI |
+| [Dizhan Xue](mailto:dizhan.xue@evermind.ai) | EverMind AI |
+| [Shengsheng Qian](mailto:shengsheng.qian@nlpr.ia.ac.cn) · corresponding author | Institute of Automation, CAS · UCAS |
+| [Changsheng Xu](mailto:csxu@nlpr.ia.ac.cn) | Institute of Automation, CAS · UCAS · Peng Cheng Laboratory |
 
-<sub>\* Corresponding author · IA, CAS = Institute of Automation, Chinese Academy of Sciences · UCAS = University of Chinese Academy of Sciences</sub>
+## License and acknowledgements
 
----
+CRISPR code is released under the [MIT License](LICENSE). Backbone models and
+third-party assets retain their own licenses; see [Third-party notices](NOTICE.md)
+for the baseline comparison code. We thank the authors of
+[Qwen2.5-VL](https://github.com/QwenLM/Qwen2.5-VL),
+[Qwen3.5](https://huggingface.co/Qwen), and the datasets used in the original work.
 
-<sub>
+<details>
+<summary>Historical naming</summary>
 
-**Naming.** The paper uses **CRISPR** as the method name. Some historical code/comments may still refer to the earlier internal codename **CRISP** / **ImageC3** — these refer to the same method.
+Some code and comments use the earlier names **CRISP** or **ImageC3**.
+They refer to CRISPR and are retained for compatibility.
 
-**License.** Code in this repository is released under the [MIT License](LICENSE), unless otherwise noted in individual files or subdirectories (e.g. third-party assets with their own upstream licenses). See [NOTICE.md](NOTICE.md) for a note on baseline-comparison code that was removed rather than redistributed without a confirmed license.
+</details>
 
-**Acknowledgements.** This work builds on [Qwen2.5-VL](https://github.com/QwenLM/Qwen2.5-VL). We thank the authors of Qwen2.5-VL and the datasets used in this work.
-
-</sub>
+<p align="center"><sub><a href="#">Back to top ↑</a></sub></p>

@@ -1,3 +1,5 @@
+[Home](../README.md) / [Documentation](../docs/README.md) / Qwen3.5
+
 # CRISPR for Qwen3.5
 
 CRISPR compressor checkpoints for the frozen Qwen3.5-4B and Qwen3.5-9B
@@ -12,8 +14,8 @@ backbones. Each checkpoint produces a fixed number of visual tokens per image.
 | Qwen3.5-9B | 64 | [`qwen3.5-9b-64tokens`](https://huggingface.co/Rim2000/CRISPR/tree/main/qwen3.5-9b-64tokens) |
 
 These are additional Qwen3.5 checkpoints, separate from the Qwen2.5-VL
-checkpoints accompanying the ACM MM 2026 paper. The Qwen2.5-VL loading and
-reproduction commands in the main README apply to the original release.
+checkpoints accompanying the ACM MM 2026 paper. The [Qwen2.5-VL reproduction guide](../docs/reproduction.md) applies to
+the original release.
 
 ## Download and load
 
@@ -85,3 +87,7 @@ SHA-256 digests. Verify a downloaded directory with `sha256sum -c SHA256SUMS`.
 
 The code and compressor weights use the repository's MIT license. The Qwen
 backbones retain their own licenses. See the main README for the CRISPR citation.
+
+---
+
+[All checkpoints](../docs/checkpoints.md) · [Documentation](../docs/README.md) · [Back to home](../README.md)
